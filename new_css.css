@@ -1,0 +1,615 @@
+.body1 {
+  background-color: #e36e1f;
+
+  margin: 0;
+  padding: 0;
+
+  margin: 0; height: 100%; overflow: hidden
+}
+
+
+.body2 {
+  background-color: #e36e1f;
+
+  margin: 0;
+  padding: 0;
+
+}
+
+.whiteBody {
+  position: fixed;
+  left: -30%;
+  bottom: 24%;
+  width: 250%;
+  height: 150%;
+
+  z-index: -10;
+}
+
+
+@keyframes screenTransition {
+  0% {
+    transform: translateY(0) translateX(0);
+
+
+  }
+  100%{
+    transform: translateX(500px) translateY(-500px);
+  }
+}
+
+@keyframes enterNews{
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100%{
+    transform: translateX(500px) translateY(-500px);
+  }
+}
+
+.newsElementGroup{
+  overflow:hidden;
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: right;
+}
+
+
+.newsElement{
+  overflow:hidden;
+  position: relative;
+  width: 500px;
+  height: 150px;
+  background-color: white;
+  right: -1750px;
+  border-radius: 30px;
+
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns:  repeat(2, 50%);
+  grid-template-rows: repeat(2, 25%);
+  align-items: center;
+
+  padding: 0;
+}
+
+
+
+
+.newsImage{
+
+  height: 150px;
+  width: 150px;
+  margin-top: 0;
+  margin-left: -25px;
+
+  grid-column: 2/2;
+  grid-row: 1/3;
+
+
+}
+
+
+.newsDesc{
+  grid-column: 1/1;
+  grid-row: 2/2;
+  font-family: 'Oswald', sans-serif;
+  margin-right: 10px;
+  margin-left: 20px;
+  font-size: 15px;
+  margin-top: 50px;
+
+}
+
+.newsHeading{
+  text-align: center;
+  grid-column: 1/1;
+  grid-row: 1/1;
+  font-family: 'Oswald', sans-serif;
+  font-size: 25px;
+}
+
+a{
+  color: black;
+}
+.whiteBody:hover {
+  fill: #DA4567;
+}
+h1 {
+  color: rgb(53, 0, 175);
+  position: fixed;
+}
+
+.openButton {
+  z-index: 100;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  border: 3px solid #e36e1f;
+  background-color: transparent;
+  text-align: center;
+  z-index: 1;
+
+
+
+  font-family: 'Oswald', sans-serif;
+
+
+  position: absolute;
+
+  left:65%;
+  top:5%;
+
+  line-height: 200px;
+
+  font-size: 20px;
+
+
+  overflow: hidden;
+
+
+
+}
+  
+
+
+.skolasLogo {
+  position: fixed;
+
+  bottom: 0;
+  width: 150px;
+  height: 150px;
+
+}
+
+
+@keyframes pulsatingBigScreen {
+  0%{
+    height: 150px;
+    width: 150px;
+  }
+  50%{
+    height: 160px;
+    width: 160px;
+  }
+  100%{
+    height: 150px;
+    width: 150px;
+  }
+}
+
+.centered {
+display: grid;  bottom: -10;
+
+  align-items: start;
+    justify-items: center;
+}
+
+
+.rightPanel{
+  text-align: start;
+  display: grid;
+  place-items: start;
+  min-height: 20vh;
+}
+
+.buttons{
+  overflow:hidden;
+  display: grid;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: left;
+}
+
+
+.menuButton{
+
+  position: relative;
+  cursor: pointer;
+
+  background-color: transparent;
+
+  border: 1px solid white;
+
+  overflow: hidden;
+
+  left:-1000px;
+
+  padding: 15px;
+  width: 400px;
+  text-align: center;
+
+  font-family: 'Oswald', sans-serif;
+  font-size: 15px;
+
+  border-radius: 20px;
+
+  margin-bottom: 10px;
+  margin-left: 10px;
+
+  transition: transform .5s;
+}
+
+
+.menuButton:hover{
+  transform: translateX(10);
+}
+
+div.planTab{
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 0px;
+  min-height: 100vh;
+}
+
+
+.planItem{
+  display: grid;
+  place-items: center;
+
+
+  margin-top: -2000px;
+
+  min-height: 50px;
+  flex-wrap: wrap;
+  width: 500px;
+
+  border-bottom: solid white 1px;
+
+}
+
+.planHeading{
+  font-family: 'Oswald', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+.planDetails{
+  font-family: 'Oswald', sans-serif;
+
+  width: 400px;
+  inline-size: 400;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.backButton{
+  font-family: 'Oswald', sans-serif;
+
+  padding: 0;
+  border: solid white 1px;
+  width: 140px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  margin-top: -2000px;
+  border-radius: 10px;
+  background-color: #72101000;
+  text-align: center;
+  
+cursor: pointer;
+}
+
+
+
+.commentsZone{
+  display: grid;
+  place-items: center;
+
+  min-height: 100vh;
+  padding: 10px;
+}
+
+.comment{
+  margin-top: -2000px;
+  background-color: azure;
+  width: 500px;
+  border-radius: 50px;
+  padding: 20px;
+}
+
+.commentContent{
+  font-family: 'Oswald', sans-serif;
+
+}
+
+
+.commentAuthor{
+  font-family: 'Oswald', sans-serif;
+
+  text-align: right;
+  font-weight: bold;
+}
+
+.commentDate{
+  text-align: right;
+}
+
+.newCommentImage{
+  overflow:hidden ;
+  width: 50px;
+  height: 50px;
+
+  padding: 15px;
+  border-radius: 30px;
+  background-color: #ffae00;
+
+  margin: 20px;
+  cursor: pointer;
+}
+
+.newComment{
+  overflow:hidden ;
+
+} 
+
+.newCommentImage{
+  overflow:hidden ;
+
+  position: fixed;
+  bottom: 0;
+  left:0;
+}
+
+
+.commentCreate{
+
+  margin-top: -2000px;
+  background-color: rgb(68, 68, 68);
+  text-align: center;
+  width: 500px;
+}
+
+.mainCommentInput{
+  width: 400px;
+  height: 100px;
+  border: none;
+}
+
+.commentName{
+  height: 25px;
+  width: 250px;
+}
+
+.commentCreateInfo{
+  font-family: 'Oswald', sans-serif;
+
+  color: #ff003c;
+
+  height: 20px;
+  line-height: 20px;
+  font-weight: bolder;
+  width: 100%;
+  text-align: center;
+}
+
+.mainCommentInput{
+  max-width: 500px;
+
+}
+
+.sendComment{
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  width: 100px;
+  height: 50px;
+
+  background-color: #45b0da;
+  border: none;
+  border-radius: 40px;
+}
+
+
+.informationAboutParlaiment{
+  text-align: center;
+  opacity: 0;
+  margin: 30px;
+}
+
+
+.membersTitle{
+  opacity:0;
+  text-align: center;
+}
+
+.infoTitle{
+  opacity:0;
+  text-align: center;
+}
+
+ul{
+  text-align: center;
+  list-style-position: inside;
+  opacity: 0;
+}
+
+
+.centerButton{
+  width: 100%;
+  display: grid;
+  align-items: center;
+  height: 50px;
+}
+
+@media screen and (max-height: 700px) {
+  .skolasLogo {
+    position: fixed;
+
+    margin-top: 400px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100px;
+    height: 100px;
+  }
+
+
+
+  .openButton {
+    top:100px
+  }
+
+
+}
+
+@media screen and (max-width: 500px) {
+
+
+
+  .commentCreate{
+    background-color: rgb(68, 68, 68);
+  
+    width: 100%;
+  }
+  
+  .mainCommentInput{
+    width: 250px;
+    height: 100px;
+    border: none;
+  }
+  
+  .commentName{
+    height: 25px;
+    width: 250px;
+  }
+  
+  .commentCreateInfo{
+    font-family: 'Oswald', sans-serif;
+  
+    color: #ff003c;
+  
+    height: 20px;
+    line-height: 20px;
+    font-weight: bolder;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .mainCommentInput{
+    max-width: 500px;
+  }
+
+  .commentsZone{
+    display: grid;
+    place-items: center;
+  
+
+    min-height: 150vh;
+    padding: 0px;
+  }
+  
+  .comment{
+    background-color: azure;
+    width: 200px;
+    border-radius: 50px;
+    padding: 20px;
+  }
+  
+  .commentContent{
+    font-family: 'Oswald', sans-serif;
+  
+    font-size: 12px;
+  }
+  
+  
+  .commentAuthor{
+    font-family: 'Oswald', sans-serif;
+  
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  .commentDate{
+    text-align: right;
+  }
+
+
+
+  .skolasLogo {
+    width: 80px;
+    height: 80px;
+
+    bottom: 0;
+
+    position: fixed;
+  }
+
+  .planItem{
+    display: grid;
+    place-items: center;
+  
+  
+    margin-top: -2000px;
+  
+    min-height: 50px;
+    flex-wrap: wrap;
+    width: 200px;
+  
+    border-bottom: solid white 1px;
+  
+  }
+  
+  .planHeading{
+    font-family: 'Oswald', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .planDetails{
+    font-family: 'Oswald', sans-serif;
+  
+    width: 200px;
+    inline-size: 200;
+    text-align: center;
+    overflow-wrap: break-word;
+  }
+
+  .openButton {
+
+
+    height: 150px;
+    width: 150px;
+
+    left:120px;
+    top:10px;
+
+    font-size: 15px;
+    line-height: 150px;
+  }
+  
+
+  .newsElement{
+    width: 300px;
+    height: 300px
+  }
+  .newsImage{
+
+    height: 10%;
+    width: 10%;
+    margin-top: 0;
+    margin-left: -15px;
+  
+    grid-column: 2/2;
+    grid-row: 1/3;
+  }
+  .newsDesc{
+    grid-column: 1/1;
+    grid-row: 2/2;
+    font-family: 'Oswald', sans-serif;
+    margin-right: 10px;
+    margin-left: 20px;
+    font-size: 15px;
+    margin-top: 50px;
+  
+  }
+  
+  .newsHeading{
+    text-align: center;
+    grid-column: 1/1;
+    grid-row: 1/1;
+    font-family: 'Oswald', sans-serif;
+    font-size: 25px;
+  }
+  
+
+}
