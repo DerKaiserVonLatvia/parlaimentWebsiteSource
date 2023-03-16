@@ -74,6 +74,7 @@ infoButton.onmousedown = function () {
   switchPages("info");
 };
 
+
 function setButtons(on) {
   if (on) {
     commentButton = document.getElementById("commentButton");
@@ -126,7 +127,6 @@ function onHover(enter) {
     delay: (el, i) => 40 * i,
   });
 }
-
 
 function fetchHtml(htmlTitle) {
   var html = "";
@@ -278,7 +278,7 @@ Atpakaļ
   <div class="newsElementGroup">
     <div class="newsElement">
       <div class="newsHeading">
-        <a>Aktuālakas Ziņas</a>
+        <a>Poll test</a>
       </div>
 
       <div class="newsDesc">
@@ -287,22 +287,7 @@ Atpakaļ
       </div>
 
       <div class="newsImage">
-        <img src="images/download.png" />
-      </div>
-    </div>
-
-    <div class="newsElement">
-      <div class="newsHeading">
-        <a>Aktuālakas Ziņas</a>
-      </div>
-
-      <div class="newsDesc">
-        Aktuālako ziņu apraksts aisusdgaledecuiacyfkef dufhlcsdfl
-        ufigSCFNGSDKjgf OSDfglsug
-      </div>
-
-      <div class="newsImage">
-        <img src="images/download.png" />
+        <img class="mainImageDesc" src="images/polls.png" />
       </div>
     </div>
     <div class="newsElement">
@@ -316,10 +301,25 @@ Atpakaļ
       </div>
 
       <div class="newsImage">
-        <img src="images/download.png" />
+        <img class="mainImageDesc" src="images/logog.png" />
+      </div>
+    </div>
+    <div class="newsElement">
+      <div class="newsHeading">
+        <a>Aktuālakas Ziņas</a>
+      </div>
+
+      <div class="newsDesc">
+        Aktuālako ziņu apraksts aisusdgaledecuiacyfkef dufhlcsdfl
+        ufigSCFNGSDKjgf OSDfglsug
+      </div>
+
+      <div class="newsImage">
+        <img class="mainImageDesc" src="images/logog.png" />
       </div>
     </div>
   </div>
+</div>
     `;
   }
   return html;
@@ -357,7 +357,7 @@ function animateText() {
   }, 1800);
 }
 
-function displayNews(animateIn) {
+function displayNews(animateIn) {//DISPLAY NEWS
   console.log(animateIn);
 
   if (animateIn === true) {
@@ -366,10 +366,8 @@ function displayNews(animateIn) {
       console.log("b");
       let html = fetchHtml("home");
       container.innerHTML = html;
-      setButtons(true)
+      setButtons(true);
 
-
-      console.log(html);
       beginButton = null;
     } else {
       beginButton.style.zIndex = "-10";
@@ -411,9 +409,8 @@ function displayNews(animateIn) {
     }, 2000);
   }
 
-  body.style = "margin: 0; height: 200%; overflow: auto";
+  body.style = "overflow: auto";
 }
-
 
 function loadInfo(loadIn) {
   if (loadIn === true) {
@@ -532,7 +529,6 @@ function loadComments(loadIn) {
     }
 
     var targets = [".comment", ".commentCreate", ".backButton"];
-
     targets.forEach((element) => {
       anime.timeline({ loop: false }).add({
         targets: element,

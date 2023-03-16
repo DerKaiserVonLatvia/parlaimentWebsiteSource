@@ -1,12 +1,75 @@
+
+.options{
+  top:50%;
+  left: 50%;
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+  width: 400px;
+
+  
+
+}
+.option {
+  font-family: 'Oswald', sans-serif;
+
+  position: relative;
+  height: 50px;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 5px;
+  text-align: left;
+  border: solid black 1px;
+  line-height: 50px;
+  border-radius: 10px;
+  text-indent: 10px;
+  font-style:initial;
+  overflow: hidden;
+}
+
+
+.pollHeader{
+  width: 100%;
+  text-align: center;
+  color:black;
+  font-family: 'Oswald', sans-serif;
+  top:50px;
+}
+
+.filled{
+
+  border-radius: 10px;
+  margin: 0;
+  width: 0px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  background-color: antiquewhite;
+}
+
 .body1 {
   background-color: #e36e1f;
 
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 
   margin: 0; height: 100%; overflow: hidden
 }
 
+.mainPollSection{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.pollCol1{
+  background-color: #ff003c;
+  width: 20px;
+  height: 100px;
+}
 
 .body2 {
   background-color: #e36e1f;
@@ -81,8 +144,8 @@
 
   height: 150px;
   width: 150px;
-  margin-top: 0;
-  margin-left: -25px;
+  margin-top: 59px;
+  margin-left: 25px;
 
   grid-column: 2/2;
   grid-row: 1/3;
@@ -90,6 +153,10 @@
 
 }
 
+.mainImageDesc{
+  height: 100%;
+  width: 100%;
+}
 
 .newsDesc{
   grid-column: 1/1;
@@ -338,7 +405,6 @@ cursor: pointer;
   margin: 20px;
   cursor: pointer;
 }
-
 .newComment{
   overflow:hidden ;
 
@@ -352,6 +418,15 @@ cursor: pointer;
   left:0;
 }
 
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 .commentCreate{
 
@@ -456,6 +531,64 @@ ul{
 @media screen and (max-width: 500px) {
 
 
+  
+.options{
+  top:50%;
+  left: 50%;
+  position: absolute;
+
+  transform: translate(-50%, -50%);
+  width: 250px;
+
+  
+
+}
+.option {
+  font-family: 'Oswald', sans-serif;
+
+  position: relative;
+  height: 50px;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 5px;
+  text-align: left;
+  border: solid black 1px;
+  line-height: 50px;
+  border-radius: 10px;
+  text-indent: 10px;
+  font-style:initial;
+  overflow: hidden;
+}
+
+
+.pollHeader{
+  width: 100%;
+  text-align: center;
+  color:black;
+  font-family: 'Oswald', sans-serif;
+  top:20px;
+}
+
+.filled{
+
+  border-radius: 10px;
+  margin: 0;
+  width: 0%;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  background-color: antiquewhite;
+
+
+}
+  
+  .mainImageDesc{
+    height: 100%;
+    width: 100%;
+  }
+  
 
   .commentCreate{
     background-color: rgb(68, 68, 68);
@@ -582,16 +715,24 @@ ul{
     width: 300px;
     height: 300px
   }
-  .newsImage{
 
-    height: 10%;
-    width: 10%;
-    margin-top: 0;
-    margin-left: -15px;
-  
-    grid-column: 2/2;
-    grid-row: 1/3;
-  }
+.newsImage{
+
+  height: 150px;
+  width: 150px;
+  margin-left: -15px;
+
+  grid-column: 2/3;
+  grid-row: 1/4;
+
+
+}
+
+.mainImageDesc{
+  height: 100%;
+  width: 100%;
+}
+
   .newsDesc{
     grid-column: 1/1;
     grid-row: 2/2;
