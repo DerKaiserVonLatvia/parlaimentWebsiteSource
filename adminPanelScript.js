@@ -17,10 +17,10 @@ function initiateArticleCreation() {
   output.innerHTML = articleCreationTemplate;
 }
 
-function submitDocxFile() {
+function submitDocxFile() { 
   const selectedFile = document.getElementById("inputDocx").files[0];
   console.log(selectedFile);
-
+``
   let formData = new FormData();
   formData.append("file", selectedFile);
   for (var p of formData) {
@@ -32,7 +32,7 @@ function submitDocxFile() {
     if (this.readyState == 4 && this.status == 200) {
         console.log(this.responseText);
     }
-  }// err handling
+  }
   xhr.timeout = 5000;
   xhr.open("POST", 'adminpanelHandle.php'); 
   xhr.send(formData);

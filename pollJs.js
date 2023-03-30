@@ -1,25 +1,33 @@
 const urlParams = new URLSearchParams(window.location.search);
 const pollId = urlParams.get('pollId');
+var POLL_RESULTS = "";
 
 function fetchVotes(pollId) {
   if (pollId && pollId !== "") {
     try {
-      return [9, 3];
-    } catch (error) {}
+      console.log(POLL_RESULTS)
+      let results =  POLL_RESULTS;
+      results.forEach(element => {
+        results[results.indexOf(element)]=parseInt(element);
+      });
+      console.log(results);
+      return results;
+    } catch (error) {console.log(error)}
   } else {
     return [0];
   }
 }
 
+function getCurrentURL () {
+  return window.location.search;
+}
+const url = getCurrentURL()
+const params = new URLSearchParams(url);
+const POLL_ID = params.get("pollId")
 
 function addVoteToPoll(pollId, voteNum) {
-  
-
-
-
-
   var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "server.php?fetch=poll&id=000", true);
+  xhttp.open("GET", "server.php?fetch=poll&id="+pollId, true);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.onreadystatechange = function() {
      if (this.readyState == 4 && this.status == 200) {
@@ -32,29 +40,42 @@ function addVoteToPoll(pollId, voteNum) {
 
 var THIS_POLL_ID = 0;
 
-function loadPoll() {
+
+function getPollInfo(pollId)
+{
+  return new Promise((callBack) => {
+    setTimeout(() => {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "server.php?fetch=poll&id="+pollId, true);
+      xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          //console.log(this.responseText)
+          callBack(this.responseText);
+        }
+     };
+     xhttp.send();
+    }, 0);
+  });
+}
+
+async function loadPoll(pollId) {
   
 
-  var xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "server.php?fetch=poll&id=0", true);
-  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-  var toReturn = {};
-  var r="";
+  console.log(pollId)
 
-  xhttp.onreadystatechange = function() {
-     if (this.readyState == 4 && this.status == 200) {
-        r=this.responseText;
-     }
-  };
-  xhttp.send();
+  var r= await getPollInfo(pollId);
+
+  console.log(r);
 
   let pollData = r.split('%');//pollTitle=Vai jūs piedalītos skolas talantu šovā?%pollId=0%pollOptions=Jā&Nē%pollResults=0&0
-
   var pollTitle = pollData[0].split('=')[1];
   var pollId =  pollData[1].split('=')[1];
   var pollOptions =  pollData[2].split('=')[1];
-  var pollResults = pollData[3].split('=')[1];
+  var pollResults = pollData[3].split('=')[1].split('&');
+  POLL_RESULTS=pollResults;
 
   document.getElementById('pollTitle').innerText = pollTitle;
 
@@ -65,13 +86,17 @@ function loadPoll() {
   let allOptions = pollOptions.split('&');
   allOptions.forEach(element => {
     let number = allOptions.indexOf(element);
+    let option = allOptions[number];
     html+=`        
     <div id="${number}" class="option">
-        Jā - ?
-        <div id="filled${number}" class="filled"></div>
+        ${option} - ?
+        <div id="filled${number}" class="filled" results="${pollResults[number]}"></div>
   </div>`;
   });
-  console.log(html);
+  document.getElementById("allOptions").innerHTML=html;
+  document.getElementById("pollTitle").innerText=pollTitle;
+  detectClicksOnOptions();
+
 }
 
 function sendVotes(optionToAddTo, pollId) {}
@@ -94,10 +119,10 @@ function checkIfVoted(pollId) {
 
 function revealVotes(voteResults, votesum, allOptions) {
   let allFills = document.querySelectorAll(".filled");
-
+  console.warn(allFills);
   let j = 0;
   allOptions.forEach((e) => {
-    e.innerHTML = e.innerHTML.replace("0", voteResults[j]);
+    e.innerHTML = e.innerHTML.replace("?", voteResults[j]);
     j++;
   });
 
@@ -117,9 +142,10 @@ function revealVotes(voteResults, votesum, allOptions) {
 
 function detectClicksOnOptions() {
   let allOptions = document.querySelectorAll(".option");
+  console.log(allOptions);
   var optionVotes = fetchVotes("vote1");
   let votesum = 0;
-  console.log(votesum);
+  //console.log(votesum);
   var i = 0;
 
   if (checkIfVoted("vote"+THIS_POLL_ID)) {
@@ -130,6 +156,8 @@ function detectClicksOnOptions() {
   } else {
     allOptions.forEach((element) => {
       element.onmousedown = function () {
+        console.log(parseInt(element.id));
+        console.log(optionVotes);
         optionVotes[parseInt(element.id)]++;
         optionVotes.forEach((element) => {
           votesum += element;
@@ -147,6 +175,5 @@ function detectClicksOnOptions() {
   }
 }
 
-detectClicksOnOptions();
 
-loadPoll();
+loadPoll(POLL_ID);

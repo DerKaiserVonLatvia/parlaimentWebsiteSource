@@ -229,6 +229,15 @@ h1 {
   height: 150px;
 
 }
+.skolasLogoTop {
+  position: fixed;
+
+  top: 0;
+  width: 100px;
+  height: 100px;
+
+}
+
 
 
 @keyframes pulsatingBigScreen {
@@ -504,9 +513,22 @@ ul{
 .centerButton{
   width: 100%;
   display: grid;
-  align-items: center;
+  justify-items: center;
   height: 50px;
 }
+
+.topLayer{
+  width: 100%;
+
+  height: 50px;
+
+  display: grid;
+
+  align-items: start;
+    justify-items: center;
+}
+
+
 
 @media screen and (max-height: 700px) {
   .skolasLogo {

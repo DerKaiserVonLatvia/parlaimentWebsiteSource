@@ -74,7 +74,6 @@ infoButton.onmousedown = function () {
   switchPages("info");
 };
 
-
 function setButtons(on) {
   if (on) {
     commentButton = document.getElementById("commentButton");
@@ -128,7 +127,29 @@ function onHover(enter) {
   });
 }
 
-function fetchHtml(htmlTitle) {
+function fetchData(typeOfData, extraData0, extraData1) {
+  if (extraData0 == "commentTarget") {
+    typeOfData += "&" + extraData0 + "=" + extraData1;
+  }
+  return new Promise((callBack) => {
+    setTimeout(() => {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("GET", "server.php?fetch=" + typeOfData, true);
+      xhttp.setRequestHeader(
+        "Content-type",
+        "application/x-www-form-urlencoded"
+      );
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          callBack(this.responseText);
+        }
+      };
+      xhttp.send();
+    }, 0);
+  });
+}
+
+async function fetchHtml(htmlTitle, extraData0, extraData1) {
   var html = "";
   if (htmlTitle === "plans") {
     html = `
@@ -173,70 +194,58 @@ function fetchHtml(htmlTitle) {
       </div>
     `;
   } else if (htmlTitle === "comments") {
-    html = `
-    <div class="newComment">
-    <img class="newCommentImage" id="newCommentImage" src="images/newComment.png"/>
-</div>
+    let commentsfetch = await fetchData("comments", extraData0, extraData1);
+    let allComments = commentsfetch.split(">>>");
+    console.log(allComments);
+    if (extraData0 != "commentTarget") {
+      html = `
+      <div class="newComment">
+        <img class="newCommentImage" id="newCommentImage" src="images/newComment.png"/>
+      </div>
+  
+      <div class="commentsZone">
+      <button class="backButton" id="backButton" onclick="switchPages('home')">
+      Atpakaļ
+      </button>`;
+    }
 
-<div class="commentsZone">
-<button class="backButton" id="backButton" onclick="switchPages('home')">
-Atpakaļ
-</button>
-    <div class="comment">
+    allComments.forEach((element) => {
+      if (element.length > 1) {
+        commentsParts = element.split("##");
+
+        html += `
+        <div class="comment">
         <p class="commentContent">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            ${commentsParts[1]}
         </p>    
-
+  
         <p class="commentAuthor">
-            Author123
+            ${commentsParts[0]}
         </p>
         <p class="commentDate">
-            01/01/2005
+          ${commentsParts[2]}
         </p>
     </div>
-
-    <div class="comment">
-        <p class="commentContent">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        </p>    
-
-        <p class="commentAuthor">
-            Author123
-        </p>
-        <p class="commentDate">
-            01/01/2005
-        </p>
-    </div>
-
-    <div class="comment">
-        <p class="commentContent">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        </p>    
-
-        <p class="commentAuthor">
-            Author123
-        </p>
-        <p class="commentDate">
-            01/01/2005
-        </p>
-    </div>
-</div>
-<div class="commentCreate" id="createComments">
+        `;
+      }
+    });
+    if (extraData0 != "commentTarget") {
+      html += `
+  </div>
+  <div class="commentCreate" id="createComments">
     <p class="commentCreateInfo">
-        Katrs atsūtīts komentārs tiks pārbaudīts.
+      Katrs atsūtīts komentārs tiks pārbaudīts.
     </p>
-    <textarea maxlength="200" class="mainCommentInput" id="newCommentContent"></textarea>
-    <span class="symbolCounter" id="counter">0/200</span>
-    <p class="info">
-        Kā Jūs saukt?
-    </p>
-    <input type="text" class="commentName" id="newCommentName"/>
-    <button class="sendComment">Sūtīt</button>
-</div>
-<script>
-console.log("aaa");
-</script>
-    `;
+  <textarea maxlength="200" class="mainCommentInput" id="newCommentContent"></textarea>
+  <span class="symbolCounter" id="counter">0/200</span>
+  <p class="info">
+      Kā Jūs saukt?
+  </p>
+  <input type="text" class="commentName" id="newCommentName"/>
+  <button class="sendComment">Sūtīt</button>
+  </div>
+  `;
+    }
   } else if (htmlTitle === "info") {
     html = `
     <div class="centerButton">
@@ -278,7 +287,7 @@ Atpakaļ
   <div class="newsElementGroup">
     <div class="newsElement">
       <div class="newsHeading">
-        <a>Poll test</a>
+        <a href="http://localhost/parlamentaWebsite/pollTest?pollId=0">Poll test</a>
       </div>
 
       <div class="newsDesc">
@@ -357,14 +366,15 @@ function animateText() {
   }, 1800);
 }
 
-function displayNews(animateIn) {//DISPLAY NEWS
+async function displayNews(animateIn) {
+  //DISPLAY NEWS
   console.log(animateIn);
 
   if (animateIn === true) {
     let container = document.getElementById("mainSection");
     if (container.innerHTML.length < 10) {
       console.log("b");
-      let html = fetchHtml("home");
+      let html = await fetchHtml("home");
       container.innerHTML = html;
       setButtons(true);
 
@@ -412,9 +422,9 @@ function displayNews(animateIn) {//DISPLAY NEWS
   body.style = "overflow: auto";
 }
 
-function loadInfo(loadIn) {
+async function loadInfo(loadIn) {
   if (loadIn === true) {
-    let domInser = fetchHtml("info");
+    let domInser = await fetchHtml("info");
 
     if (domInser) {
       document.getElementById("infoSection").innerHTML += domInser;
@@ -483,9 +493,9 @@ function loadInfo(loadIn) {
   }
 }
 
-function loadPlans(loadIn) {
+async function loadPlans(loadIn) {
   if (loadIn === true) {
-    let domInser = fetchHtml("plans");
+    let domInser = await fetchHtml("plans");
     if (domInser) {
       document.getElementById("planSection").innerHTML += domInser;
     } else {
@@ -518,10 +528,9 @@ function loadPlans(loadIn) {
   }
 }
 
-function loadComments(loadIn) {
+async function loadComments(loadIn) {
   if (loadIn === true) {
-    let domInser = fetchHtml("comments");
-
+    let domInser = await fetchHtml("comments");
     if (domInser) {
       document.getElementById("commentSection").innerHTML += domInser;
     } else {
@@ -596,17 +605,17 @@ function moveSchoolLogo(moveIn) {
   }
 }
 
-function switchPages(page) {
+async function switchPages(page) {
   //displayNews(false)
 
-  console.log("a");
+  console.log(page);
   if (page == "home") {
     if (CURRENTPAGE === "plans") {
-      loadPlans(false);
+      await loadPlans(false);
     } else if (CURRENTPAGE === "comments") {
-      loadComments(false);
+      await loadComments(false);
     } else if (CURRENTPAGE === "info") {
-      loadInfo(false);
+      await loadInfo(false);
     }
 
     setTimeout(() => {
